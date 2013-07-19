@@ -20,8 +20,6 @@ Or install it yourself as:
 
 ## Usage
 
-config/initializers/mscrm.rb
-
     Mscrmrails.configure do |c|
       c.server    = 'crm.example.com'
       c.username  = 'username'
