@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["bweber@spinuplabs.com"]
   spec.summary       = 'MSCRM 3.0 Connection'
   spec.description   = 'Gem that makes it easier to connect a rails application to a mscrm 3.0 installation.'
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/redsparklabs/mscrmrails"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
