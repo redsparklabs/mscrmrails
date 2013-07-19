@@ -31,7 +31,7 @@ Or install it yourself as:
 
     @lead_id = @client.create 'lead', { :attributes => { :name => 'Name', :company => 'Company', :email => 'email@email.com' } }
 
-    @leads = fetch 'lead', { 
+    @leads = @client.fetch 'lead', { 
                               :limit => 100, 
                               :fields => ['firstname','lastname','companyname','createdon'], 
                               :conditions => { 'or' => [['firstname','Firstname'],['lastname','Lastname']] } 
