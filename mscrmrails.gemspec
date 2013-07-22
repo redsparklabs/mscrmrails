@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency('json', '>= 0')
   spec.add_dependency('crack', '>= 0')
   spec.add_dependency('hash_extension', '>= 0')
+  spec.add_dependency('httpi','0.9.6')
 end
