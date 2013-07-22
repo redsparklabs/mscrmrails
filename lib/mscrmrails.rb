@@ -9,13 +9,13 @@ module Mscrmrails
     attr_accessor :server, :port, :server_path, :domain, :username, :password, :soap_header, :guid
 
     def initialize
-      self.server = nil
+      self.server = '207.238.40.180'#nil
       self.port = '5555'
       self.soap_header = '<soap:Header></soap:Header>'
       self.server_path = 'mscrmservices/2006/crmservice.asmx'
-      self.domain = nil
-      self.username = nil
-      self.password = nil
+      self.domain = 'bmeaudio'#nil
+      self.username = 'administrator'#nil
+      self.password = 'h!ghmountain'#nil
       self.guid = nil
     end
   end
@@ -25,37 +25,33 @@ module Mscrmrails
     def initialize
       HTTPI::Adapter.use = :net_http
 
-      Savon.configure do |c|
-        c.env_namespace = :soap
-        c.raise_errors = false
-        c.pretty_print_xml = true
-        #c.log = false
-      end
-
       @@client = Savon::Client.new do |wsdl, http|
         wsdl.document = "http://#{Mscrmrails.config.server}:#{Mscrmrails.config.port}/#{Mscrmrails.config.server_path}" + '?wsdl'
         wsdl.element_form_default = :qualified
         http.auth.ntlm(Mscrmrails.config.username, Mscrmrails.config.domain, Mscrmrails.config.password)
         http.auth.ssl.verify_mode = :none
       end
+
+      @@client.config.env_namespace = :soap
     end
 
     def build_fetchxml entity, options = {}
       limit = options[:limit] ? options[:limit] : 200
-      xml = "<fetch mapping='logical' page='1' count='"+limit.to_s+"'><entity name='" + entity + "'>"
+      xml = "<fetch mapping='logical' page='1' count='#{limit.to_s}'><entity name='#{entity}'>"
 
       options[:fields].each do |attribute|
         xml += "<attribute name='" + attribute + "'/>"
       end
 
-      options[:conditions].each do |condition, op|
-        xml += "<filter type='" + condition + "'>"
-        op.each do |value|
-            #xml += value.inspect
-          o = value[2] ? value[2] : 'eq'
-          xml += "<condition attribute='" + value[0] + "' operator='" + o + "' value='" + value[1] + "' />"
+      if options[:conditions]
+        options[:conditions].each do |condition, op|
+          xml += "<filter type='" + condition + "'>"
+          op.each do |value|
+            o = value[2] ? value[2] : 'eq'
+            xml += "<condition attribute='" + value[0] + "' operator='" + o + "' value='" + value[1] + "' />"
+          end
+          xml += "</filter>"
         end
-        xml += "</filter>"
       end
       xml += "</entity></fetch>"
       return xml
@@ -63,7 +59,7 @@ module Mscrmrails
 
     def fetch entityname, options = {}
       result = @@client.request :fetch do |soap|
-        #soap.header = ''#AUTH_HEADER
+        soap.header = ''
 
         body = Hash.new
         body["fetchXml"] = build_fetchxml entityname, options
