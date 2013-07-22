@@ -6,8 +6,10 @@ _WIP: update, delete
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add these lines to your application's Gemfile
 
+    gem 'savon', '0.9.11'
+    gem 'httpi', "~> 0.9.6", :git => 'git://github.com/bensie/httpi.git', :branch => 'ntlm'
     gem 'mscrmrails'
 
 And then execute:
