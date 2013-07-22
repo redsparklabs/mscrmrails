@@ -9,13 +9,13 @@ module Mscrmrails
     attr_accessor :server, :port, :server_path, :domain, :username, :password, :soap_header, :guid
 
     def initialize
-      self.server = #nil
+      self.server = nil
       self.port = '5555'
       self.soap_header = '<soap:Header></soap:Header>'
       self.server_path = 'mscrmservices/2006/crmservice.asmx'
-      self.domain = #nil
-      self.username = #nil
-      self.password = #nil
+      self.domain = nil
+      self.username = nil
+      self.password = nil
       self.guid = nil
     end
   end
