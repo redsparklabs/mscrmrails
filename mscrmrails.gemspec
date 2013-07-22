@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
 
   # Dependencies
-  spec.add_dependency('savon') #~>1.2.0')
+  spec.add_dependency('savon', '>= 0.9.11') #~>1.2.0')
   spec.add_dependency('json', '>= 0')
   spec.add_dependency('crack', '>= 0')
   spec.add_dependency('hash_extension', '>= 0')

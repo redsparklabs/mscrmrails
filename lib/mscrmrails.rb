@@ -25,8 +25,15 @@ module Mscrmrails
     def initialize
       HTTPI::Adapter.use = :net_http
 
+     # @@client = Savon::Client.new do |wsdl, http|
+     #   wsdl.document = "http://#{Mscrmrails.config.server}:#{Mscrmrails.config.port}/#{Mscrmrails.config.server_path}" + '?wsdl'
+     #   wsdl.element_form_default = :qualified
+     #   http.auth.ntlm(Mscrmrails.config.username, Mscrmrails.config.domain, Mscrmrails.config.password)
+     #   http.auth.ssl.verify_mode = :none
+     # end
+
       @@client = Savon::Client.new do |wsdl, http|
-        wsdl.document = "http://#{Mscrmrails.config.server}:#{Mscrmrails.config.port}/#{Mscrmrails.config.server_path}" + '?wsdl'
+        wsdl.document = "http://#{Mscrmrails.config.server}:#{Mscrmrails.config.port}/#{Mscrmrails.config.server_path}?wsdl"
         wsdl.element_form_default = :qualified
         http.auth.ntlm(Mscrmrails.config.username, Mscrmrails.config.domain, Mscrmrails.config.password)
         http.auth.ssl.verify_mode = :none
